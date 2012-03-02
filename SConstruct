@@ -72,7 +72,7 @@ else:
 def CheckGCrypt(context):
     context.Message("Checking for libgcrypt-config...")
     if commands.getstatusoutput('which libgcrypt-config')[0] == 0:
-        env['LIBS'] += commands.getoutput('libgcrypt-config --libs').strip().split()    
+        env['LINKFLAGS'] += commands.getoutput('libgcrypt-config --libs').strip().split()    
         context.Result('ok')
         return 1
     else:
