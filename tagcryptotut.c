@@ -64,7 +64,7 @@ int tagcrypt_otut_serialize(struct tagcrypt_otut *otut, kbuffer *out) {
 /** Read a serialized OTUT string. */
 /* FIXME: Convert this to use a tbuffer. */
 int tagcrypt_otut_realize(kbuffer *otut_buf, struct tagcrypt_otut *otut) {
-    size_t n;
+    uint32_t n;
     uint8_t n8;
 
     if (kbuffer_read8(otut_buf, &n8)) return -1; // Reads KNP_STR

@@ -112,7 +112,7 @@ static int tagcrypt_sign_recognize_license(__attribute__ ((unused)) tagcrypt_sig
                                            void **subpacket_ret,
                                            uint16_t *ret_len) {
     struct tagcrypt_license_params *lp;
-    size_t kdn_s;
+    uint32_t kdn_s;
 
     do {
         /* Allocate memory for the license structure. */
@@ -522,7 +522,7 @@ static int tagcrypt_sign_recognize_podto(__attribute__ ((unused)) tagcrypt_signa
                                          void **subpacket_ret,
                                          uint16_t *ret_len) {
     struct tagcrypt_podto_params * p;
-    size_t s, len;
+    uint32_t s, len;
 
     do {
         /* Read the length of the PoD target address. */
@@ -1181,8 +1181,7 @@ static int tagcrypt_sign_recognize_kpg_addr(tagcrypt_signature *sign, kbuffer *b
 
     /* TRY */
     do {
-
-        if (kbuffer_read8(buffer, &kpg->type))
+        if (kbuffer_read8(buffer, (uint8_t *)&kpg->type))
             break;
 
         if (kserializable_deserialize((kserializable **)&kpg->addr, buffer)) 
@@ -1336,7 +1335,7 @@ int tagcrypt_signature_get_blob(tagcrypt_signature * self, char ** blob, size_t 
     /* Read the blob size. */
     pb = self->subpackets[TAG_SP_TYPE_BLOB]->spkt;
     *blob_s = pb->blob->len;
-    *blob = pb->blob->data;
+    *blob = (char *)pb->blob->data;
 
     return 0;
 }
