@@ -2,8 +2,7 @@ import commands, os, sys
 
 # Per Laurent Birtz example.
 EnsurePythonVersion(2,3)
-SourceSignatures('MD5')
-TargetSignatures('content')
+Decider('MD5')
 
 tagcrypt_FILES = ['tagcrypt.c',
                   'tagcryptgen.c',
@@ -25,11 +24,11 @@ tagcrypt_HEADERS = ['tagcrypt.h',
                     'tagcryptotut.h',
                     'tagcryptgen.h']
 
-opts = Options('build.conf')
-opts.AddOptions(
-    BoolOption('mudflap', 'Build with mudflap (gcc 4.x)', 0),
-    BoolOption('mpatrol', 'Build with mpatrol', 0),
-    BoolOption('debug', 'Compile with all debug options turned on', 1),
+opts = Variables('build.conf')
+opts.AddVariables(
+    BoolVariable('mudflap', 'Build with mudflap (gcc 4.x)', 0),
+    BoolVariable('mpatrol', 'Build with mpatrol', 0),
+    BoolVariable('debug', 'Compile with all debug options turned on', 1),
     ('libktools_include', 'Location of include files for libktools', '../libktools/src'),
     ('libktools_libpath', 'Location of library files for libktools', '../libktools/build'),
     ('LIBDIR', 'Directory to install library files', '/usr/lib'),
